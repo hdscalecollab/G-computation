@@ -6,7 +6,7 @@
 #R code by Joy Shi and Sean McGrath
 #Original code can be found here: https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/
 
-#Version 3.6.2024
+#Version 3.8.2024
 
 # Contact: Anais Teyton, ateyton@ucsd.edu
 
@@ -109,7 +109,7 @@ standardization <- function(data, indices) {
   
   
   # linear regression model to estimate mean outcome conditional on treatment and confounders
-  model <- glm(dia ~ intervention_b + sex + intervention_b*sex + incomecat + racecat + age + educcat + lat, data=d.onesample)
+  model <- glm(glucose_mgdl ~ intervention_b + sex + intervention_b*sex + incomecat + racecat + age + educcat + lat, data=d.onesample)
   
   summary(model)
   

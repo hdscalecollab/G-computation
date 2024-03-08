@@ -6,7 +6,7 @@
 #R code by Joy Shi and Sean McGrath
 #Original code can be found here: https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/
 
-#Version 3.6.2024
+#Version 3.8.2024
 
 # Contact: Anais Teyton, ateyton@ucsd.edu
 
