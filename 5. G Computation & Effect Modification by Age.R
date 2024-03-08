@@ -6,7 +6,7 @@
 #R code by Joy Shi and Sean McGrath
 #Original code can be found here: https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/
 
-#Version 1.31.2024
+#Version 3.6.2024
 
 # Contact: Anais Teyton, ateyton@ucsd.edu
 
@@ -32,7 +32,7 @@ library("ggthemes")
 #Set working directory and upload clean sample data
 setwd("ENTER WORKING DIRECTORY HERE")
 pq <- read_excel("ENTER DATASET HERE")
-pq = subset(pq, select = c(pq_study_id_unique, ndvi_mean_400m, cholesterol_result, ldl_calculated_result, triglyceride_result, hemoglobin_a1c_result, glucose_mgdl, sys, dia, sex, incomecat, racecat, age, educcat, lat) )
+pq = subset(pq, select = c(pq_study_id_unique, ndvi_mean_400m, cholesterol_result, ldl_calculated_result, triglyceride_result, hemoglobin_a1c_result, glucose_mgdl, sys, dia, sex, incomecat, racecat, age, educcat, lat, bmi, hdl_result, m1_ws_cm, mets) )
 
 #DATA DESCRIPTION PROVIDED IN CODE #1
 pq$sex <- as.factor(pq$sex)
@@ -52,7 +52,7 @@ standardization <- function(data, indices) {
   
   d1 <- d # 2nd copy (Minimum): intervention set to 1, outcome to missing
   d1$interv <- 1
-  d1$intervention_b [d1$age >= 65] <- -.0815979465842247
+  d1$intervention_b [d1$age >= 65] <- -.0815979
   d1$glucose_mgdl <- NA
   
   d2 <- d # 3rd copy (10th percentile): intervention set to 2, outcome to missing
@@ -62,27 +62,27 @@ standardization <- function(data, indices) {
   
   d3 <- d # 4th copy (20th percentile): intervention set to 3, outcome to missing
   d3$interv <- 3
-  d3$intervention_b [d3$age >= 65]  <- .1143549978733063
+  d3$intervention_b [d3$age >= 65]  <- .1140746735036373
   d3$glucose_mgdl <- NA
   
   d4 <- d # 5th copy (30th percentile): intervention set to 4, outcome to missing
   d4$interv <- 4
-  d4$intervention_b [d4$age >= 65]  <- .1339770704507828
+  d4$intervention_b [d4$age >= 65]  <- .133780911564827
   d4$glucose_mgdl <- NA
   
   d5 <- d # 6th copy (40th percentile): intervention set to 5, outcome to missing
   d5$interv <- 5
-  d5$intervention_b [d5$age >= 65]  <- .1468733251094818
+  d5$intervention_b [d5$age >= 65]  <- .146772064268589
   d5$glucose_mgdl <- NA
   
   d6 <- d # 7th copy (50th percentile): intervention set to 6, outcome to missing
   d6$interv <- 6
-  d6$intervention_b [d6$age >= 65]  <- .1663886681199074
+  d6$intervention_b [d6$age >= 65]  <- .1665423661470413
   d6$glucose_mgdl <- NA
   
   d7 <- d # 8th copy (60th percentile): intervention set to 7, outcome to missing
   d7$interv <- 7
-  d7$intervention_b  [d7$age >= 65]  <- .1879086345434189
+  d7$intervention_b  [d7$age >= 65]  <- .1879632100462914
   d7$glucose_mgdl <- NA
   
   d8 <- d # 9th copy (70th percentile): intervention set to 8, outcome to missing
@@ -92,12 +92,12 @@ standardization <- function(data, indices) {
   
   d9 <- d # 10th copy (80th percentile): intervention set to 9, outcome to missing
   d9$interv <- 9
-  d9$intervention_b [d9$age >= 65]   <- .2258577197790146
+  d9$intervention_b [d9$age >= 65]   <- .2252189218997955
   d9$glucose_mgdl <- NA
   
   d10 <- d # 11th copy (90th percentile): intervention set to 10, outcome to missing
   d10$interv <- 10
-  d10$intervention_b [d10$age >= 65]  <- .2258577197790146
+  d10$intervention_b [d10$age >= 65]  <- .259517103433609
   d10$glucose_mgdl <- NA
   
   d11 <- d # 12th copy (Maximum): intervention set to 11, outcome to missing
@@ -225,7 +225,7 @@ bootstrap_gluc_ageover65
 #Set working directory and upload clean sample data
 setwd("ENTER WORKING DIRECTORY HERE")
 pq <- read_excel("ENTER DATASET HERE")
-pq = subset(pq, select = c(pq_study_id_unique, ndvi_mean_400m, cholesterol_result, ldl_calculated_result, triglyceride_result, hemoglobin_a1c_result, glucose_mgdl, sys, dia, sex, incomecat, racecat, age, educcat, lat) )
+pq = subset(pq, select = c(pq_study_id_unique, ndvi_mean_400m, cholesterol_result, ldl_calculated_result, triglyceride_result, hemoglobin_a1c_result, glucose_mgdl, sys, dia, sex, incomecat, racecat, age, educcat, lat, bmi, hdl_result, m1_ws_cm, mets) )
 
 #DATA DESCRIPTION PROVIDED IN CODE #1
 pq$sex <- as.factor(pq$sex)
@@ -245,7 +245,7 @@ standardization <- function(data, indices) {
   
   d1 <- d # 2nd copy (Minimum): intervention set to 1, outcome to missing
   d1$interv <- 1
-  d1$intervention_b [d1$age < 65] <- -.0815979465842247
+  d1$intervention_b [d1$age < 65] <- -0815979
   d1$glucose_mgdl <- NA
   
   d2 <- d # 3rd copy (10th percentile): intervention set to 2, outcome to missing
@@ -255,27 +255,27 @@ standardization <- function(data, indices) {
   
   d3 <- d # 4th copy (20th percentile): intervention set to 3, outcome to missing
   d3$interv <- 3
-  d3$intervention_b [d3$age < 65]  <- .1143549978733063
+  d3$intervention_b [d3$age < 65]  <- .1140746735036373
   d3$glucose_mgdl <- NA
   
   d4 <- d # 5th copy (30th percentile): intervention set to 4, outcome to missing
   d4$interv <- 4
-  d4$intervention_b [d4$age < 65]  <- .1339770704507828
+  d4$intervention_b [d4$age < 65]  <- .133780911564827
   d4$glucose_mgdl <- NA
   
   d5 <- d # 6th copy (40th percentile): intervention set to 5, outcome to missing
   d5$interv <- 5
-  d5$intervention_b [d5$age < 65]  <- .1468733251094818
+  d5$intervention_b [d5$age < 65]  <- .146772064268589
   d5$glucose_mgdl <- NA
   
   d6 <- d # 7th copy (50th percentile): intervention set to 6, outcome to missing
   d6$interv <- 6
-  d6$intervention_b [d6$age < 65]  <- .1663886681199074
+  d6$intervention_b [d6$age < 65]  <- .1665423661470413
   d6$glucose_mgdl <- NA
   
   d7 <- d # 8th copy (60th percentile): intervention set to 7, outcome to missing
   d7$interv <- 7
-  d7$intervention_b  [d7$age < 65]  <- .1879086345434189
+  d7$intervention_b  [d7$age < 65]  <- .1879632100462914
   d7$glucose_mgdl <- NA
   
   d8 <- d # 9th copy (70th percentile): intervention set to 8, outcome to missing
@@ -285,12 +285,12 @@ standardization <- function(data, indices) {
   
   d9 <- d # 10th copy (80th percentile): intervention set to 9, outcome to missing
   d9$interv <- 9
-  d9$intervention_b [d9$age < 65]   <- .2258577197790146
+  d9$intervention_b [d9$age < 65]   <- .2252189218997955
   d9$glucose_mgdl <- NA
   
   d10 <- d # 11th copy (90th percentile): intervention set to 10, outcome to missing
   d10$interv <- 10
-  d10$intervention_b [d10$age < 65]  <- .2258577197790146
+  d10$intervention_b [d10$age < 65]  <- .259517103433609
   d10$glucose_mgdl <- NA
   
   d11 <- d # 12th copy (Maximum): intervention set to 11, outcome to missing

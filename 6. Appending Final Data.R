@@ -6,7 +6,7 @@
 # Example provided is for Blood Glucose Level Outcome
 # Can be substituted for any of the other 6 biomarkers
 
-#Version 1.31.2024
+#Version 3.6.2024
 
 # Contact: Anais Teyton, ateyton@ucsd.edu
 
